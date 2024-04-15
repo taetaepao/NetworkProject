@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, useNavigate } from 'react-router-dom';
 import { LoginCallback, Security } from '@okta/okta-react';
 import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
+
+
 
 const oktaAuth = new OktaAuth({
   issuer: `${process.env.REACT_APP_OKTA_ORG_URL}/oauth2/default`,
@@ -14,7 +16,7 @@ const oktaAuth = new OktaAuth({
 });
 
 function SecuredRoutes(props) {
-  const history = useHistory();
+  const history = useNavigate();
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
     history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
   };
